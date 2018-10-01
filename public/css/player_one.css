@@ -1,0 +1,209 @@
+body {
+    /* The artwork (1. rusted metal texture pack) below has been sourced from:
+    https://opengameart.org/content/rusted-metal-texture-pack
+    The artwork appears in its original form.
+    */
+
+    background: url("../img/game-background-image.png") no-repeat;
+
+    /*
+    End of artwork (1. rusted metal texture pack)
+    */
+
+    background-size: 100vw, auto;
+}
+
+* {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#landing_page {
+    height: 0;
+    display: none;
+}
+
+#player_two_screen {
+    display: none;
+}
+
+.header-row {
+    padding-top: 10vh;
+}
+
+.wide-text {
+    width: 100%;
+}
+
+.green {
+    color: yellowgreen;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: dodgerblue;
+}
+
+.description-text {
+    text-align: center;
+}
+
+.command-window {
+    height: 80vh;
+    width: 100%;
+}
+
+.command-window-inner {
+    padding: 5vh 0 5vh 0;
+    border: solid 5px black;
+    border-radius: 15px 15px 15px 15px;
+    height: 70vh;
+    background-color: dimgrey;
+}
+
+#command-window-textfield-p1 {
+    max-height: 100%;
+    padding: 5% 5% 5% 5%;
+    margin: 5% 5% 5% 5%;
+    background-color: dimgrey;
+    overflow: auto;
+}
+
+#command-window-textfield p {
+    background-color: dimgrey;
+}
+
+#reactor-heat-level {
+    padding-left: 0;
+    padding-right: 0;
+    height: 40vh;
+    width: 100%;
+}
+
+#gauge-img {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 40vh;
+    max-width: 25vw;
+    display: block;
+    height: auto;
+    width: auto;
+}
+
+#heat-warning-one {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: 30vh;
+}
+
+#warning-img-yellow {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 40vh;
+    max-width: 10vw;
+    display: block;
+    height: auto;
+    width: auto;
+}
+
+#heat-warning-two {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: 30vh;
+}
+
+#warning-img-red {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 40vh;
+    max-width: 12vw;
+    display: block;
+    height: auto;
+    width: auto;
+}
+
+#overdrive-mode-heat {
+    height: 80vh;
+    width: 100%;
+}
+
+.empty-space {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.overdrive-temperature-outer {
+    height: 70vh;
+    width: 100%;
+    background-color: dimgrey;
+    border: solid 5px black;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.overdrive-temperature-inner {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: red;
+    border: solid 0 red;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.overdrive-temperature-increase {
+    height: 10%;
+    width: 100%;
+    z-index: 1;
+    background-color: dimgrey;
+    border: solid 0 dimgrey;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.cooling-text {
+    padding-top: 3vh;
+}
+
+.cooling-lamps {
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 20vh;
+    max-width: 10vw;
+    display: block;
+    height: auto;
+    width: auto;
+}
+
+#cooling-system-one {
+    width: 100%;
+    height: 15vh;
+    margin-top: 5vh;
+}
+
+#cooling-system-two {
+    width: 100%;
+    height: 15vh;
+}
+
+#cooling-system-three {
+    width: 100%;
+    height: 15vh;
+}
+
+#cooling-system-four {
+    width: 100%;
+    height: 15vh;
+}
+
+/* REFERENCE LIST FOR PLAYER_ONE.CSS
+
+1. p0ss(2011)1. rusted metal texture pack. Retrieved from:
+https://opengameart.org/content/rusted-metal-texture-pack
+*/

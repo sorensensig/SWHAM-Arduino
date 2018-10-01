@@ -1,0 +1,43 @@
+<% include partials/header %>
+
+<!-- LANDING PAGE -->
+<div class="container" id="landing_page">
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <h1>Game Setup</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-6 mb-3 text-center">
+            <input id="player-name" type="text" placeholder="Player name"/>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input id="player-option-one" type="radio" name="options" value="player-one" autocomplete="off">Player 1
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="player-option-two" type="radio" name="options" value="player-two" autocomplete="off">Player 2
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-ready">Ready</button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="alert-success" id="output"></div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>

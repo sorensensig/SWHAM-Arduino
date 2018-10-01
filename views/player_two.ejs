@@ -1,0 +1,138 @@
+<% include partials/header %>
+
+<!-- PLAYER TWO -->
+<div class="container-fluid" id="player_two_screen">
+    <div class="row header-row">
+        <div class="col-4 command-window">
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <!-- Empty space -->
+                </div>
+
+                <div class="col-8 command-window-inner">
+                    <div class="row" id="command-window-textfield-p2">
+                        <p>Game starts in <strong>5</strong> seconds</p>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <!-- Empty space -->
+                </div>
+                <p>The command window</p>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    <!-- The artwork (4. graph) below has been sourced from:
+                    https://pixabay.com/no/knappen-grafen-diagrammet-160271/
+                    The artwork appears in its original form -->
+                    <img id="demand-graph" src="\img\demand-graph.png">
+                    <!-- End of artwork (4. graph) -->
+                    <p class="description-text">Demand Graph</p>
+                </div>
+            </div>
+
+            <div class="row space-top">
+                <div class="col-3">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="generator-lamp-one" class="generator-lamps" src="\img\warning-grey.png" alt="Generator Lamp One">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-3">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="generator-lamp-two" class="generator-lamps" src="\img\warning-grey.png" alt="Generator Lamp Two">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-3">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="generator-lamp-three" class="generator-lamps" src="\img\warning-grey.png" alt="Generator Lamp Three">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-3">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="generator-lamp-four" class="generator-lamps" src="\img\warning-grey.png" alt="Generator Lamp Four">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                    <button id="generator-level-one-btn" type="button" class="btn-warning btn-primary">Level One</button>
+                </div>
+                <div class="col-3">
+                    <button id="generator-level-two-btn" type="button" class="btn-warning btn-primary">Level Two</button>
+                </div>
+                <div class="col-3">
+                    <button id="generator-level-three-btn" type="button" class="btn-warning btn-primary">Level Three</button>
+                </div>
+                <div class="col-3">
+                    <button id="generator-level-four-btn" type="button" class="btn-warning btn-primary">Level Four</button>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <p class="description-text">Generator Output Level</p>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="row">
+                <div class="col-4">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="reserve-lamp-one" class="reserve-lamps" src="\img\warning-grey.png" alt="Reserve Lamp One">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-8">
+                    <div id="reserve-one-outer">
+                        <div id="reserve-one-inner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="reserve-lamp-two" class="reserve-lamps" src="\img\warning-grey.png" alt="Reserve Lamp Two">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-8">
+                    <div id="reserve-two-outer">
+                        <div id="reserve-two-inner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <!-- The artwork (3. flash) below has been altered from:
+                    https://pixabay.com/no/advarselslampen-flash-veiarbeid-160180/
+                    The artwork's colour has been altered to fit the project need. -->
+                    <img id="reserve-lamp-three" class="reserve-lamps" src="\img\warning-grey.png" alt="Reserve Lamp Three">
+                    <!-- End of artwork (3. flash) -->
+                </div>
+                <div class="col-8">
+                    <div id="reserve-three-outer">
+                        <div id="reserve-three-inner"></div>
+                    </div>
+                </div>
+                <p>Reserves</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>
