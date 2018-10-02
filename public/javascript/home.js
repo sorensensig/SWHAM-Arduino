@@ -9,7 +9,6 @@ The code snippet appears in its original form.
 
 // Make connection
 //http://localhost:3000
-
 let socket = io.connect('localhost:3000');
 
 /*
@@ -18,15 +17,36 @@ End code snippet (1. Connect to localhost:3000 from another computer | expressjs
 
 let playerName = document.getElementById('player-name'),
     btnReady = document.getElementById('btn-ready'),
-    output = document.getElementById('output');
-
-    /*coolingLampOne = document.getElementById('cooling-lamp-one'),
+    output = document.getElementById('output'),
+    cssFile = document.getElementById('css-file'),
+    cmdWinTextP1 = document.getElementById('command-window-textfield-p1'),
+    coolingBtnOne = document.getElementById('cooling-system-one-btn'),
+    coolingBtnTwo = document.getElementById('cooling-system-two-btn'),
+    coolingBtnThree = document.getElementById('cooling-system-three-btn'),
+    coolingBtnFour = document.getElementById('cooling-system-four-btn'),
+    coolingLampOne = document.getElementById('cooling-lamp-one'),
     coolingLampTwo = document.getElementById('cooling-lamp-two'),
     coolingLampThree = document.getElementById('cooling-lamp-three'),
     coolingLampFour = document.getElementById('cooling-lamp-four'),
+    cmdWinTextP2 = document.getElementById('command-window-textfield-p2'),
+    genLampOne = document.getElementById('generator-lamp-one'),
+    genLampTwo = document.getElementById('generator-lamp-two'),
+    genLampThree = document.getElementById('generator-lamp-three'),
+    genLampFour = document.getElementById('generator-lamp-four'),
+    genBtnOne = document.getElementById('generator-level-one-btn'),
+    genBtnTwo = document.getElementById('generator-level-two-btn'),
+    genBtnThree = document.getElementById('generator-level-three-btn'),
+    genBtnFour = document.getElementById('generator-level-four-btn'),
     reserveLampOne = document.getElementById('reserve-lamp-one'),
     reserveLampTwo = document.getElementById('reserve-lamp-two'),
-    reserveLampThree = document.getElementById('reserve-lamp-three');*/
+    reserveLampThree = document.getElementById('reserve-lamp-three');
+
+let gameIsRunning = false;
+let taskCriteriaP1 = '';
+let taskCriteriaP2 = '';
+let playerNumber = 0;
+let checkingP1 = false;
+let checkingP2 = false;
 
 
 // LANDING PAGE
@@ -61,11 +81,13 @@ btnReady.addEventListener('click', function() {
             playerNumber: 1,
             playerName: playerName.value
         });
+        playerNumber = 1;
     } else {
         socket.emit('ready', {
             playerNumber: 2,
             playerName: playerName.value
         });
+        playerNumber = 2;
     }
 });
 
@@ -84,13 +106,198 @@ socket.on('addPlayerToOutput', function(data){
     }
 
     output.innerHTML += '<p><strong>' + 'Player ' + data.playerNumber + ': ' + data.playerName + '</strong></p>';
+});
+
+socket.on('changeScreen', function(data){
+    cssFile.setAttribute("href", data);
+    socket.emit('readyToRun');
+});
+
+
+// GAME SCREEN - SHARED
+socket.on('runGame', async function() {
+    /* Sets the index file to use a css file appropriate to the users chosen player number, starts the game countdown
+    and emits a request for the game to start.
+
+    param: 'runGame'(str): checks if emit from server is 'runGame'.
+    param: func(data str): contains a string with a reference to the specific css file of which the client is supposed
+    to use.
+    */
+
+    /* The code snippet (3. Javascript, setTimeout loops?) below has been adapted from:
+    https://stackoverflow.com/questions/22154129/javascript-settimeout-loops
+    The if statement and counter variable has been changed to fit this particular case.
+    */
+
+    function start(counter){
+        if(counter > 0){
+            setTimeout(function(){
+                cmdWinTextP1.innerHTML += '<p><strong>' + counter + ', ' + '</strong></p></br>';
+                cmdWinTextP2.innerHTML += '<p><strong>' + counter + ', ' + '</strong></p></br>';
+                counter--;
+                start(counter);
+            }, 1000);
+        }
+    }
+
+    let counter = 4;
+    await start(counter);
+
+    /*
+    End of code snippet (3. Javascript, setTimeout loops?)
+    */
+
+    socket.emit('getFirstCommand');
+});
+
+// GAME SCREEN PLAYER ONE
+socket.on('newCommandP1', function(command, criteria) {
+    /* Receives a new command and a criteria to fulfill that command from the server and renders it to the player one
+    screen.
+
+    param: 'newCommandP1'(str): checks if emit from server is newCommandP1'.
+    param: func(command str, criteria str): function with two string params that include a string that contains the
+    information of which the player is about to do, and a string that includes the correct answer to the command.
+    */
+
+    cmdWinTextP1.innerHTML += '<p class="blue"> > ' + command + '</p><br/>';
+    scrollP1();
+    taskCriteriaP1 = criteria;
+});
+
+/*function checkCriteriaP1(actionEvent) {
+    /!* Checks to see if the button pressed was the correct one in regards to solving the given command.
+
+    param: 'actionEvent'(str): the string element from the button clicked to be compared with the solution.
+    *!/
+
+    if (checkingP1 === false) {
+        checkingP1 = true;
+        if (actionEvent === taskCriteriaP1) {
+            socket.emit('commandCompleted');
+            setTimeout(function(){
+                checkingP1 = false;
+            }, 2000);
+        } else {
+            checkingP1 = false;
+            // increase heat level or something for being wrong.
+        }
+    }
+}*/
+
+
+// GAME SCREEN PLAYER TWO
+socket.on('newCommandP2', function(command, criteria) {
+    /* Receives a new command and a criteria to fulfill that command from the server and renders it to the player two
+    screen.
+
+    param: 'newCommandP2'(str): checks if emit from server is newCommandP1'.
+    param: func(command str, criteria str): function with two string params that include a string that contains the
+    information of which the player is about to do, and a string that includes the correct answer to the command.
+    */
+
+    cmdWinTextP2.innerHTML += '<p class="blue"> > ' + command + '</p><br/>';
+    scrollP2();
+    taskCriteriaP2 = criteria;
+});
+
+/*function checkCriteriaP2(actionEvent) { // SET TO BACK END ------------------------------------------
+    /!* Checks to see if the button pressed was the correct one in regards to solving the given command.
+
+    param: 'actionEvent'(str): the string element from the button clicked to be compared with the solution.
+    *!/
+
+    if (checkingP2 === false) {
+        checkingP2 = true;
+        if(actionEvent === taskCriteriaP2) {
+            socket.emit('commandCompleted');
+            setTimeout(function(){
+                checkingP2 = false;
+            }, 2000);
+        } else {
+            checkingP2 = false;
+            // increase heat level or something for being wrong.
+        }
+    }
+}*/
+
+socket.on('taskFailed', function() {
+    /* Renders a string in red 'Task failed' to the appropriate player's screen.
+
+    param: 'taskFailed'(str): listening to when the server emits 'taskFailed'.
+    param: func(no param): function as a parameter, where the code underneath is run whenever socket.on('taskFailed) is
+    emitted from the server.
+    */
+
+    // FEATURE IDEA: Set fail condition, e.g., increase heat level or something
+    if (playerNumber === 1) {
+        cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Task failed </p><br/>';
+        scrollP1();
+    } else {
+        cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Task failed </p><br/>';
+        scrollP2();
+    }
+
+    socket.emit('commandCompleted'); // MAYBE SET TO BACK END -------------------------------------------
+});
+
+socket.on('taskSucceeded', function() {
+    /* Renders a string in green when a task has been successfully completed.
+
+    param: 'taskSucceeded'(str): listens to the server for it's emit of 'taskSucceeded'.
+    param: func(no param): runs the code beneath.
+    */
+
+    if (playerNumber === 1) {
+        cmdWinTextP1.innerHTML += '<p class="green wide-text"> > Task successful </p><br/>';
+        scrollP1();
+    } else {
+        cmdWinTextP2.innerHTML += '<p class="green wide-text"> > Task successful </p><br/>';
+        scrollP2();
+    }
 
 });
 
-socket.on('redirectToGameScreen', function(route){
-    window.location.pathname = route;
+socket.on('wrongAction', function(){
+    if (playerNumber === 1) {
+        cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
+        scrollP1();
+    } else {
+        cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
+        scrollP2();
+    }
 });
 
-socket.on('test', function(data){
-   console.log(data);
+
+socket.on('prototypeFinished', function() {
+    /* Renders a string in black to inform the user when the prototyping is completed.
+
+    param: 'prototypeFinished(str): listens to the server for it's emit of 'prototypeFinished'.
+    param: func(no param): runs the code beneath.
+    */
+
+    if (playerNumber === 1) {
+        cmdWinTextP1.innerHTML += '<p> > Prototype Finished </p><br/>';
+        scrollP1();
+    } else {
+        cmdWinTextP2.innerHTML += '<p> > Prototype Finished </p><br/>';
+        scrollP2();
+    }
+
 });
+
+function scrollP1() {
+    /* Scrolls the command window of player one down to the bottom.*/
+
+    /* The code snippet (4. Scroll to bottom of div?) below has been altered from:
+    https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+    The variables calling the scrollTop has been altered from the original example.
+    */
+
+    cmdWinTextP1.scrollTop = cmdWinTextP1.scrollHeight - cmdWinTextP1.clientHeight;
+}
+
+function scrollP2() {
+
+    cmdWinTextP2.scrollTop = cmdWinTextP2.scrollHeight - cmdWinTextP2.clientHeight;
+}
