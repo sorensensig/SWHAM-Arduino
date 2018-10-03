@@ -17,6 +17,7 @@ End code snippet (1. Connect to localhost:3000 from another computer | expressjs
 
 let playerName = document.getElementById('player-name'),
     btnReady = document.getElementById('btn-ready'),
+    btnStart = document.getElementById('btn-start-game'),
     output = document.getElementById('output'),
     cssFile = document.getElementById('css-file'),
     cmdWinTextP1 = document.getElementById('command-window-textfield-p1'),
@@ -99,9 +100,8 @@ socket.on('addPlayerToOutput', function(data){
 
 socket.on('changeScreen', function(data){
     cssFile.setAttribute("href", data);
-    socket.emit('readyToRun');
+        socket.emit('readyToRun');
 });
-
 
 // GAME SCREEN - SHARED
 socket.on('runGame', async function() {
