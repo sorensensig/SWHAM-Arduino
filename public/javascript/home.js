@@ -9,7 +9,7 @@ The code snippet appears in its original form.
 
 // Make connection
 //http://localhost:3000
-let socket = io.connect('localhost:3000');
+let socket = io.connect('localhost:3000'); // ipv4 here + :3000
 
 /*
 End code snippet (1. Connect to localhost:3000 from another computer | expressjs, nodejs [duplicate])
