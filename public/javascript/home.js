@@ -230,6 +230,10 @@ socket.on('taskFailed', function() {
     socket.emit('commandCompleted'); // MAYBE SET TO BACK END -------------------------------------------
 });
 
+socket.on('getNewTask', function(){
+   socket.emit('commandCompleted');
+});
+
 socket.on('taskSucceeded', function() {
     /* Renders a string in green when a task has been successfully completed.
 
@@ -247,7 +251,8 @@ socket.on('taskSucceeded', function() {
 
 });
 
-socket.on('wrongAction', function(){
+// Somehow fires multiple times (2-4 times).
+/*socket.on('wrongAction', function(){
     if (playerNumber === 1) {
         cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
         scrollP1();
@@ -255,7 +260,7 @@ socket.on('wrongAction', function(){
         cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
         scrollP2();
     }
-});
+});*/
 
 socket.on('toggleLight', function(lightNum) {
     switch(lightNum) {

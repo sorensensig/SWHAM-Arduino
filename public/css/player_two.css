@@ -19,7 +19,7 @@ body {
 
 p {
     color: rgba(244, 200, 66, 1);
-    font-size: 2em;
+    font-size: 1em;
 }
 
 #landing_page {
@@ -100,8 +100,8 @@ p {
 }
 
 .keyboard-numbers {
-    width: 2vw;
-    margin-left: 4vh;
+    width: 3vw;
+    margin-left: 1.5vw;
     margin-bottom: 2vh;
 }
 

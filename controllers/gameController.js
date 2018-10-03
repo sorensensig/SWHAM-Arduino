@@ -98,8 +98,7 @@ module.exports = function(app, io) {
                             playerNum = 2;
                         }
 
-                        allButtons[i].on('down', async function () {
-                            changeLight(i+1);
+                        allButtons[i].on('press', async function () {
                             await checkCriteria(i + 1, playerNum);
                         });
 
@@ -124,13 +123,14 @@ module.exports = function(app, io) {
                         }
 
                     } else {
-                        // wrong choice
-                        if (playerNum === 1) {
+                        // wrong choice, somehow fires multiple times (2-4 times).
+/*                        if (playerNum === 1) {
                             io.to(playerList[0].socketId).emit('wrongAction');
-                        } else {
+                        } else if(playerNum === 2) {
                             io.to(playerList[1].socketId).emit('wrongAction');
-                        }
+                        }*/
                     }
+                    changeLight(btnPressed);
                     resolve();
                 });
 
@@ -214,13 +214,17 @@ module.exports = function(app, io) {
                                 if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
                                     io.to(playerId).emit('taskFailed');
                                     commandsCompletedP1[cmdIndexP1] = 'failed';
-                                } // else do nothing as the task has been completed.
+                                } else if(commandsCompletedP1[cmdIndexP1] === 'completed') {
+                                    io.to(playerId).emit('getNewTask');
+                                }
 
                             } else {
                                 if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
                                     io.to(playerId).emit('taskFailed');
                                     commandsCompletedP2[cmdIndexP2] = 'failed';
-                                } // else do nothing as the task has been completed.
+                                } else if(commandsCompletedP2[cmdIndexP2] === 'completed') {
+                                    io.to(playerId).emit('getNewTask');
+                                }
                             }
                             resolve();
                         }, 10000);
@@ -258,7 +262,6 @@ module.exports = function(app, io) {
 
                             function newCommandPlayerOne() {
                                 return new Promise(function(resolve) {
-                                    console.log('playerOne - new Command');
                                     setTimeout(function(){ // gives the player a new task after two seconds.
 
                                         io.to(playerId).emit('newCommandP1', commandListP1[cmdIndexP1]);
@@ -270,13 +273,14 @@ module.exports = function(app, io) {
 
                             function checkIfCompletedPlayerOne() {
                                 return new Promise(function(resolve) {
-                                    console.log('playerOne - is task completed?');
                                     setTimeout(function() { // checks if the task has been completed after five seconds.
 
                                         if(commandsCompletedP1[cmdIndexP1] === 'initiated') {
                                             io.to(playerId).emit('taskFailed');
                                             commandsCompletedP1[cmdIndexP1] = 'failed';
-                                        } // else do nothing as the task has been completed.
+                                        } else if(commandsCompletedP1[cmdIndexP1] === 'completed') {
+                                            io.to(playerId).emit('getNewTask');
+                                        }
                                         resolve();
                                     }, 10000);
                                 });
@@ -319,7 +323,9 @@ module.exports = function(app, io) {
                                         if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
                                             io.to(playerId).emit('taskFailed');
                                             commandsCompletedP2[cmdIndexP2] = 'failed';
-                                        } // else do nothing as the task has been completed.
+                                        } else if(commandsCompletedP2[cmdIndexP2] === 'completed') {
+                                            io.to(playerId).emit('getNewTask');
+                                        }
                                         resolve();
                                     }, 10000);
                                 })
