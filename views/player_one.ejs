@@ -1,6 +1,7 @@
 <% include partials/header %>
 
 <!-- PLAYER ONE -->
+<button id="btn-ready" style="display: none;"></button>
 <div class="container-fluid" id="player_one_screen">
     <div class="row header-row">
         <div class="col-4 command-window">
@@ -11,7 +12,7 @@
 
                 <div class="col-8 command-window-inner">
                     <div class="row" id="command-window-textfield-p1">
-                        <p>Game starts in <strong>5</strong> seconds</p>
+                        <p id="countdown">Game starts in <strong>5</strong> seconds</p>
                     </div>
                 </div>
 
@@ -42,7 +43,7 @@
                     <img id="warning-img-yellow" src="\img\warning-yellow.png" alt="lit Warning Lamp">
                     <!-- End of artwork (3. flash) -->
                     <br>
-                    <p class="description-text">Heat Warning One</p>
+                    <p id="description-text-heat-warning-one">Heat Warning One</p>
                 </div>
 
                 <div class="col-6" id="heat-warning-two">
@@ -51,7 +52,7 @@
                     The artwork's colour has been altered to fit the project need. -->
                     <img id="warning-img-red" src="\img\warning-grey.png" alt="Unlit Warning Lamp">
                     <!-- End of artwork (3. flash) -->
-                    <p class="description-text">Heat Warning Two</p>
+                    <p id="description-text-heat-warning-two">Heat Warning Two</p>
                 </div>
             </div>
         </div>
@@ -76,26 +77,17 @@
 
         <div class="col-4">
             <div class="row">
-                <div class="col-3">
-                    <button id="cooling-system-one-btn" type="button" class="btn-warning btn-primary">Valve One</button>
-                </div>
-                <div class="col-3">
-                    <button id="cooling-system-two-btn" type="button" class="btn-warning btn-primary">Valve Two</button>
-                </div>
-                <div class="col-3">
-                    <button id="cooling-system-three-btn" type="button" class="btn-warning btn-primary">Valve Three</button>
-                </div>
-                <div class="col-3">
-                    <button id="cooling-system-four-btn" type="button" class="btn-warning btn-primary">Valve Four</button>
-                </div>
+
             </div>
             <div class="row justify-content-center">
-                <p>Safety Valves</p>
             </div>
 
             <div class="row" id="cooling-system-one">
-                <div class="col-8">
+                <div class="col-6">
                     <p class="cooling-text">Sector 1 - Cooling System</p>
+                </div>
+                <div class="col-2">
+                    <img class="keyboard-numbers" src="\img\keyboard-key-1.png" alt="#1">
                 </div>
                 <div class="col-4">
                     <!-- The artwork (3. flash) below has been altered from:
@@ -107,8 +99,11 @@
             </div>
 
             <div class="row" id="cooling-system-two">
-                <div class="col-8">
+                <div class="col-6">
                     <p class="cooling-text">Sector 2 - Cooling System</p>
+                </div>
+                <div class="col-2">
+                    <img class="keyboard-numbers" src="\img\keyboard-key-2.png" alt="#2">
                 </div>
                 <div class="col-4">
                     <!-- The artwork (3. flash) below has been altered from:
@@ -120,8 +115,11 @@
             </div>
 
             <div class="row" id="cooling-system-three">
-                <div class="col-8">
+                <div class="col-6">
                     <p class="cooling-text">Sector 3 - Cooling System</p>
+                </div>
+                <div class="col-2">
+                    <img class="keyboard-numbers" src="\img\keyboard-key-3.png" alt="#3">
                 </div>
                 <div class="col-4">
                     <!-- The artwork (3. flash) below has been altered from:
@@ -133,8 +131,11 @@
             </div>
 
             <div class="row" id="cooling-system-four">
-                <div class="col-8">
+                <div class="col-6">
                     <p class="cooling-text">Sector 4 - Cooling System</p>
+                </div>
+                <div class="col-2">
+                    <img class="keyboard-numbers" src="\img\keyboard-key-4.png" alt="#4">
                 </div>
                 <div class="col-4">
                     <!-- The artwork (3. flash) below has been altered from:
