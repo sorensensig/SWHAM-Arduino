@@ -8,18 +8,34 @@ let allButtons = [];
 let playersReady = 0;
 
 // Player One Variables
-let commandListP1 = ['Activate safety valve one', 'Activate sector 3 cooling system', 'Activate sector 1 cooling system',
-    'Activate safety valve two', 'Activate safety valve four', 'Activate sector 2 cooling system',
-    'Activate safety valve three', 'Activate sector 4 cooling system'];
-let commandCriteriaP1 = [1, 2, 3, 4, 1, 2, 3, 5];
+let commandListP1 = [
+    'Activate sector 3 cooling system',
+    'Activate generator output level 3',
+    'Activate sector 1 cooling system',
+    'Activate sector 4 cooling system',
+    'Activate generator output level 2',
+    'Switch off generator output level 3',
+    'Deactivate sector 1 cooling system',
+    'Switch off generator output level 1'
+];
+
+let commandCriteriaP1 = [3, 7, 1, 4, 6, 7, 1, 5];
 let commandsCompletedP1 = [];
 let cmdIndexP1 = 0;
 
 // Player Two Variables
-let commandListP2 = ['Activate generator output level three', 'Activate top reserve', 'activate middle reserve',
-    'Activate generator output level one', 'Activate bottom reserve', 'Activate generator output level four',
-    'Activate generator output level two'];
-let commandCriteriaP2 = [5, 6, 7, 8, 5, 6, 7, 1];
+let commandListP2 = [
+    'Activate generator output level 4',
+    'Switch off sector 3 cooling system',
+    'Activate generator output level 1',
+    'Switch off generator output level 4',
+    'Activate sector 2 cooling system',
+    'Deactivate sector 2 cooling system',
+    'Switch off generator output level 2',
+    'Deactivate sector 4 cooling system'
+];
+
+let commandCriteriaP2 = [8, 3, 5, 8, 2, 2, 6, 4];
 let commandsCompletedP2 = [];
 let cmdIndexP2 = 0;
 
@@ -227,7 +243,7 @@ module.exports = function(app, io) {
                                 }
                             }
                             resolve();
-                        }, 10000);
+                        }, 8000);
                     });
                 }
 
@@ -267,7 +283,7 @@ module.exports = function(app, io) {
                                         io.to(playerId).emit('newCommandP1', commandListP1[cmdIndexP1]);
                                         commandsCompletedP1[cmdIndexP1] = 'initiated';
                                         resolve();
-                                    }, 5000);
+                                    }, 3000);
                                 });
                             }
 
@@ -282,7 +298,7 @@ module.exports = function(app, io) {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
-                                    }, 10000);
+                                    }, 8000);
                                 });
                             }
 
@@ -312,7 +328,7 @@ module.exports = function(app, io) {
                                         io.to(playerId).emit('newCommandP2', commandListP2[cmdIndexP2]);
                                         commandsCompletedP2[cmdIndexP2] = 'initiated';
                                         resolve();
-                                    }, 5000);
+                                    }, 3000);
                                 });
                             }
 
@@ -327,7 +343,7 @@ module.exports = function(app, io) {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
-                                    }, 10000);
+                                    }, 8000);
                                 })
                             }
 
