@@ -20,10 +20,6 @@ let playerName = document.getElementById('player-name'),
     output = document.getElementById('output'),
     cssFile = document.getElementById('css-file'),
     cmdWinTextP1 = document.getElementById('command-window-textfield-p1'),
-    coolingBtnOne = document.getElementById('cooling-system-one-btn'),
-    coolingBtnTwo = document.getElementById('cooling-system-two-btn'),
-    coolingBtnThree = document.getElementById('cooling-system-three-btn'),
-    coolingBtnFour = document.getElementById('cooling-system-four-btn'),
     coolingLampOne = document.getElementById('cooling-lamp-one'),
     coolingLampTwo = document.getElementById('cooling-lamp-two'),
     coolingLampThree = document.getElementById('cooling-lamp-three'),
@@ -32,14 +28,7 @@ let playerName = document.getElementById('player-name'),
     genLampOne = document.getElementById('generator-lamp-one'),
     genLampTwo = document.getElementById('generator-lamp-two'),
     genLampThree = document.getElementById('generator-lamp-three'),
-    genLampFour = document.getElementById('generator-lamp-four'),
-    genBtnOne = document.getElementById('generator-level-one-btn'),
-    genBtnTwo = document.getElementById('generator-level-two-btn'),
-    genBtnThree = document.getElementById('generator-level-three-btn'),
-    genBtnFour = document.getElementById('generator-level-four-btn'),
-    reserveLampOne = document.getElementById('reserve-lamp-one'),
-    reserveLampTwo = document.getElementById('reserve-lamp-two'),
-    reserveLampThree = document.getElementById('reserve-lamp-three');
+    genLampFour = document.getElementById('generator-lamp-four');
 
 let gameIsRunning = false;
 let taskCriteriaP1 = '';
@@ -265,6 +254,67 @@ socket.on('wrongAction', function(){
     } else {
         cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
         scrollP2();
+    }
+});
+
+socket.on('toggleLight', function(lightNum) {
+    switch(lightNum) {
+        case 1:
+            if (coolingLampOne.src.match("-grey")) {
+                coolingLampOne.src = coolingLampOne.src.replace("-grey", "-yellow");
+            } else {
+                coolingLampOne.src = coolingLampOne.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 2:
+            if (coolingLampTwo.src.match("-grey")) {
+                coolingLampTwo.src = coolingLampTwo.src.replace("-grey", "-yellow");
+            } else {
+                coolingLampTwo.src = coolingLampTwo.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 3:
+            if (coolingLampThree.src.match("-grey")) {
+                coolingLampThree.src = coolingLampThree.src.replace("-grey", "-yellow");
+            } else {
+                coolingLampThree.src = coolingLampThree.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 4:
+            if (coolingLampFour.src.match("-grey")) {
+                coolingLampFour.src = coolingLampFour.src.replace("-grey", "-yellow");
+            } else {
+                coolingLampFour.src = coolingLampFour.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 5:
+            if (genLampOne.src.match("-grey")) {
+                genLampOne.src = genLampOne.src.replace("-grey", "-yellow");
+            } else {
+                genLampOne.src = genLampOne.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 6:
+            if (genLampTwo.src.match("-grey")) {
+                genLampTwo.src = genLampTwo.src.replace("-grey", "-yellow");
+            } else {
+                genLampTwo.src = genLampTwo.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 7:
+            if (genLampThree.src.match("-grey")) {
+                genLampThree.src = genLampThree.src.replace("-grey", "-yellow");
+            } else {
+                genLampThree.src = genLampThree.src.replace("-yellow", "-grey");
+            }
+            break;
+        case 8:
+            if (genLampFour.src.match("-grey")) {
+                genLampFour.src = genLampFour.src.replace("-grey", "-yellow");
+            } else {
+                genLampFour.src = genLampFour.src.replace("-yellow", "-grey");
+            }
+            break;
     }
 });
 

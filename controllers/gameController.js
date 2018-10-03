@@ -11,7 +11,7 @@ let playersReady = 0;
 let commandListP1 = ['Activate safety valve one', 'Activate sector 3 cooling system', 'Activate sector 1 cooling system',
     'Activate safety valve two', 'Activate safety valve four', 'Activate sector 2 cooling system',
     'Activate safety valve three', 'Activate sector 4 cooling system'];
-let commandCriteriaP1 = [1, 2, 3, 4, 5, 6, 7, 8];
+let commandCriteriaP1 = [1, 2, 3, 4, 1, 2, 3, 5];
 let commandsCompletedP1 = [];
 let cmdIndexP1 = 0;
 
@@ -19,7 +19,7 @@ let cmdIndexP1 = 0;
 let commandListP2 = ['Activate generator output level three', 'Activate top reserve', 'activate middle reserve',
     'Activate generator output level one', 'Activate bottom reserve', 'Activate generator output level four',
     'Activate generator output level two'];
-let commandCriteriaP2 = [1, 2, 3, 4, 5, 6, 7, 8];
+let commandCriteriaP2 = [5, 6, 7, 8, 5, 6, 7, 1];
 let commandsCompletedP2 = [];
 let cmdIndexP2 = 0;
 
@@ -55,7 +55,7 @@ module.exports = function(app, io) {
         port: "COM3" // COM5 on laptop, COM3 on desktop.
     }*/);
 
-    board.on('ready', function(){
+/*    board.on('ready', function(){
 
         // Creating Arduino buttons with Johnny-five event listeners
         let pinNum = 2;
@@ -69,11 +69,12 @@ module.exports = function(app, io) {
             }
 
             allButtons[i].on('down', async function(){
+                changeLight(i);
                 await checkCriteria(i+1, playerNum);
             });
 
             pinNum++;
-        }
+        }*/
 
 
         // Socket connection event
@@ -82,6 +83,62 @@ module.exports = function(app, io) {
 
             socketIdList.push(socket.id);
             console.log('connected sockets: ' + socketIdList + '\n');
+
+            function setUpArduino() {
+                board.on('ready', function() {
+
+                    // Creating Arduino buttons with Johnny-five event listeners
+                    let pinNum = 2;
+
+                    for (let i = 0; i < 8; i++) {
+                        allButtons.push(new five.Button(pinNum));
+                        let playerNum = 1;
+
+                        if (i > 4) {
+                            playerNum = 2;
+                        }
+
+                        allButtons[i].on('down', async function () {
+                            changeLight(i+1);
+                            await checkCriteria(i + 1, playerNum);
+                        });
+
+                        pinNum++;
+                    }
+                });
+            }
+            setUpArduino();
+
+            function checkCriteria(btnPressed, playerNum) {
+                return new Promise(function(resolve) {
+                    if (btnPressed === commandCriteriaP1[cmdIndexP1]) {
+                        if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
+                            commandsCompletedP1[cmdIndexP1] = 'completed';
+                            io.to(playerList[0].socketId).emit('taskSucceeded');
+                        }
+
+                    } else if (btnPressed === commandCriteriaP2[cmdIndexP2]) {
+                        if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
+                            commandsCompletedP2[cmdIndexP2] = 'completed';
+                            io.to(playerList[1].socketId).emit('taskSucceeded');
+                        }
+
+                    } else {
+                        // wrong choice
+                        if (playerNum === 1) {
+                            io.to(playerList[0].socketId).emit('wrongAction');
+                        } else {
+                            io.to(playerList[1].socketId).emit('wrongAction');
+                        }
+                    }
+                    resolve();
+                });
+
+            }
+
+            function changeLight(lightNum) {
+                io.to(socket.id).emit('toggleLight', lightNum);
+            }
 
             // Socket Listener events
             socket.on('ready', async function(data) {
@@ -300,7 +357,7 @@ module.exports = function(app, io) {
                 }
             });
         });
-    });
+    /*});*/
 };
 
 function Player(socketId, playerName, playerNumber) {
@@ -329,29 +386,4 @@ function checkPlayerNumber(id) {
     }
 }
 
-function checkCriteria(btnPressed, playerNum) {
-    return new Promise(function(resolve) {
-        if (btnPressed === commandCriteriaP1[cmdIndexP1]) {
-            if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
-                commandsCompletedP1[cmdIndexP1] = 'completed';
-                io.to(playerList[0].socketId).emit('taskSucceeded');
-            }
 
-        } else if (btnPressed === commandCriteriaP2[cmdIndexP2]) {
-            if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
-                commandsCompletedP2[cmdIndexP2] = 'completed';
-                io.to(playerList[1].socketId).emit('taskSucceeded');
-            }
-
-        } else {
-            // wrong choice
-            if (playerNum === 1) {
-                io.to(playerList[0].socketId).emit('wrongAction');
-            } else {
-                io.to(playerList[1].socketId).emit('wrongAction');
-            }
-        }
-        resolve();
-    });
-
-}
