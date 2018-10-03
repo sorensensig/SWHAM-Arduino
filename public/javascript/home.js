@@ -132,8 +132,8 @@ socket.on('runGame', async function() {
     function start(counter){
         if(counter > 0){
             setTimeout(function(){
-                cmdWinTextP1.innerHTML += '<p><strong>' + counter + ', ' + '</strong></p></br>';
-                cmdWinTextP2.innerHTML += '<p><strong>' + counter + ', ' + '</strong></p></br>';
+                cmdWinTextP1.innerHTML += '<p class="countdown"><strong>' + counter + ', ' + '</strong></p></br>';
+                cmdWinTextP2.innerHTML += '<p class="countdown"><strong>' + counter + ', ' + '</strong></p></br>';
                 counter--;
                 start(counter);
             }, 1000);

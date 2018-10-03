@@ -17,6 +17,11 @@ body {
     padding-top: 0;
 }
 
+p {
+    color: rgba(244, 200, 66, 1);
+    font-size: 2em;
+}
+
 #landing_page {
     display: none;
 }
@@ -35,15 +40,19 @@ body {
 
 .green {
     color: yellowgreen;
+    font-size: 1em;
 }
 
 .red {
     color: red;
+    font-size: 1em;
 }
 
 .blue {
     color: dodgerblue;
+    font-size: 1em;
 }
+
 
 .description-text {
     text-align: center;
@@ -72,6 +81,12 @@ body {
 
 #command-window-textfield p {
     background-color: dimgrey;
+    font-size: 1em;
+}
+
+.countdown {
+    color: black;
+    font-size: 1em;
 }
 
 #demand-graph {
@@ -82,6 +97,12 @@ body {
     display: block;
     height: auto;
     width: auto;
+}
+
+.keyboard-numbers {
+    width: 2vw;
+    margin-left: 4vh;
+    margin-bottom: 2vh;
 }
 
 .space-top {
@@ -157,6 +178,11 @@ body {
     background-color: red;
     border: solid 0 red;
     border-radius: 13px 13px 13px 13px;
+}
+
+#reserve-text {
+    margin-top: -3vh;
+    padding-left: 20vw;
 }
 
 /* REFERENCE LIST FOR PLAYER_ONE.CSS

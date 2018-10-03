@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ca9fb67-c4ba-41b1-8de5-69451040eeb2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/img/keyboard-key-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/keyboard-key-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/keyboard-key-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/keyboard-key-4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/gameController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/gameController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/player_one.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player_one.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/player_two.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player_two.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/javascript/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascript/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascript/playerOne.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascript/playerTwo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/player_one.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/player_one.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/player_two.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/player_two.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/player_one.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/player_one.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/player_two.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/player_two.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +35,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="4" />
-          <entry key="ejs" value="26" />
+          <entry key="css" value="6" />
+          <entry key="ejs" value="29" />
           <entry key="js" value="7" />
           <entry key="json" value="3" />
           <entry key="txt" value="1" />
@@ -45,8 +44,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="4" />
-          <entry key="EJS" value="26" />
+          <entry key="CSS" value="6" />
+          <entry key="EJS" value="29" />
           <entry key="JSON" value="3" />
           <entry key="JavaScript" value="7" />
           <entry key="PLAIN_TEXT" value="1" />
@@ -54,18 +53,18 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="17" />
-          <entry key="ejs" value="289" />
-          <entry key="js" value="7191" />
+          <entry key="css" value="43" />
+          <entry key="ejs" value="295" />
+          <entry key="js" value="7226" />
           <entry key="json" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="17" />
-          <entry key="EJS" value="289" />
+          <entry key="CSS" value="43" />
+          <entry key="EJS" value="295" />
           <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="7191" />
+          <entry key="JavaScript" value="7226" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -77,38 +76,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="187">
+              <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/gameController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascript/home.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="124" column="6" lean-forward="true" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/player_two.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2278">
-              <caret line="134" column="6" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
+            <state relative-caret-position="119">
+              <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -116,35 +94,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+            <state>
+              <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/partials/player_two.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="599">
+              <caret line="134" column="6" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/header.ejs">
+        <entry file="file://$PROJECT_DIR$/public/css/player_two.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+            <state relative-caret-position="340">
+              <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/footer.ejs">
+        <entry file="file://$PROJECT_DIR$/public/javascript/home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/player_one.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2499">
-              <caret line="147" column="6" selection-start-line="147" selection-start-column="6" selection-end-line="147" selection-end-column="6" />
+            <state relative-caret-position="361">
+              <caret line="135" column="62" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,18 +154,18 @@
         <option value="$PROJECT_DIR$/views/partials/footer.ejs" />
         <option value="$PROJECT_DIR$/public/css/home.css" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/public/css/player_one.css" />
-        <option value="$PROJECT_DIR$/public/css/player_two.css" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/public/javascript/playerOne.js" />
         <option value="$PROJECT_DIR$/public/javascript/playerTwo.js" />
         <option value="$PROJECT_DIR$/views/player_one.ejs" />
         <option value="$PROJECT_DIR$/views/player_two.ejs" />
-        <option value="$PROJECT_DIR$/public/javascript/home.js" />
-        <option value="$PROJECT_DIR$/views/partials/player_one.ejs" />
-        <option value="$PROJECT_DIR$/views/partials/player_two.ejs" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/controllers/gameController.js" />
+        <option value="$PROJECT_DIR$/public/css/player_one.css" />
+        <option value="$PROJECT_DIR$/views/partials/player_one.ejs" />
+        <option value="$PROJECT_DIR$/public/javascript/home.js" />
+        <option value="$PROJECT_DIR$/public/css/player_two.css" />
+        <option value="$PROJECT_DIR$/views/partials/player_two.ejs" />
       </list>
     </option>
   </component>
@@ -207,6 +188,7 @@
     <option name="width" value="1928" />
     <option name="height" value="1756" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -268,6 +250,9 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sigurd\Documents\GitHub\SWHAM-Arduino\public\img" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Sigurd\Documents\GitHub\SWHAM-Arduino\views\partials" />
       <recent name="C:\Users\Sigurd\Documents\GitHub\SWHAM-Arduino\public\img" />
@@ -303,13 +288,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42472000" />
+    <option name="totallyTimeSpent" value="43798000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="-7" y="0" width="962" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19256505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18831168" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -346,13 +331,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/player_two.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="125" column="1" lean-forward="true" selection-start-line="125" selection-start-column="1" selection-end-line="125" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -362,31 +340,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/playerOne.js" />
     <entry file="file://$PROJECT_DIR$/public/javascript/playerTwo.js" />
-    <entry file="file://$PROJECT_DIR$/public/css/player_one.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/player_two.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2278">
-          <caret line="134" column="6" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        <state relative-caret-position="187">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -404,27 +361,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/player_one.ejs">
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2499">
-          <caret line="147" column="6" selection-start-line="147" selection-start-column="6" selection-end-line="147" selection-end-column="6" />
+        <state>
+          <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="124" column="6" lean-forward="true" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
+        <state relative-caret-position="361">
+          <caret line="135" column="62" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/gameController.js">
+    <entry file="file://$PROJECT_DIR$/views/partials/player_one.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="83" column="35" lean-forward="true" selection-start-line="82" selection-start-column="47" selection-end-line="83" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/player_one.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <caret line="205" column="20" lean-forward="true" selection-start-line="205" selection-start-column="20" selection-end-line="205" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/gameController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/player_two.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/player_two.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="599">
+          <caret line="134" column="6" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
         </state>
       </provider>
     </entry>
