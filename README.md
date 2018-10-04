@@ -24,3 +24,5 @@ Open up one browser on each computer and write in the url 'youripv4adress:3000' 
 At this time you should have the landing page come up on both computers. Make sure that each player selects a unique player number, as the
 code will bug if there are two players with the same player number. Moreover, for each runthrough of the game, the server will have to be
 restarted.
+
+P.S: The project does not run if the Arduino controllers are wrong or not plugged in at all.
