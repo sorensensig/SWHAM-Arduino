@@ -9,7 +9,7 @@ The code snippet appears in its original form.
 
 // Make connection
 //http://localhost:3000
-let socket = io.connect('localhost:3000'); // ipv4 here + :3000
+let socket = io.connect('localhost:3000'); // add ipv4 here + :3000
 
 /*
 End code snippet (1. Connect to localhost:3000 from another computer | expressjs, nodejs [duplicate])
@@ -154,26 +154,6 @@ socket.on('newCommandP1', function(command, criteria) {
     taskCriteriaP1 = criteria;
 });
 
-/*function checkCriteriaP1(actionEvent) {
-    /!* Checks to see if the button pressed was the correct one in regards to solving the given command.
-
-    param: 'actionEvent'(str): the string element from the button clicked to be compared with the solution.
-    *!/
-
-    if (checkingP1 === false) {
-        checkingP1 = true;
-        if (actionEvent === taskCriteriaP1) {
-            socket.emit('commandCompleted');
-            setTimeout(function(){
-                checkingP1 = false;
-            }, 2000);
-        } else {
-            checkingP1 = false;
-            // increase heat level or something for being wrong.
-        }
-    }
-}*/
-
 
 // GAME SCREEN PLAYER TWO
 socket.on('newCommandP2', function(command, criteria) {
@@ -189,26 +169,6 @@ socket.on('newCommandP2', function(command, criteria) {
     scrollP2();
     taskCriteriaP2 = criteria;
 });
-
-/*function checkCriteriaP2(actionEvent) { // SET TO BACK END ------------------------------------------
-    /!* Checks to see if the button pressed was the correct one in regards to solving the given command.
-
-    param: 'actionEvent'(str): the string element from the button clicked to be compared with the solution.
-    *!/
-
-    if (checkingP2 === false) {
-        checkingP2 = true;
-        if(actionEvent === taskCriteriaP2) {
-            socket.emit('commandCompleted');
-            setTimeout(function(){
-                checkingP2 = false;
-            }, 2000);
-        } else {
-            checkingP2 = false;
-            // increase heat level or something for being wrong.
-        }
-    }
-}*/
 
 socket.on('taskFailed', function() {
     /* Renders a string in red 'Task failed' to the appropriate player's screen.
@@ -227,7 +187,7 @@ socket.on('taskFailed', function() {
         scrollP2();
     }
 
-    socket.emit('commandCompleted'); // MAYBE SET TO BACK END -------------------------------------------
+    socket.emit('commandCompleted');
 });
 
 socket.on('getNewTask', function(){
@@ -250,17 +210,6 @@ socket.on('taskSucceeded', function() {
     }
 
 });
-
-// Somehow fires multiple times (2-4 times).
-/*socket.on('wrongAction', function(){
-    if (playerNumber === 1) {
-        cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
-        scrollP1();
-    } else {
-        cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Incorrect Action Performed </p><br/>';
-        scrollP2();
-    }
-});*/
 
 socket.on('toggleLight', function(lightNum) {
     switch(lightNum) {
@@ -356,3 +305,23 @@ function scrollP2() {
 
     cmdWinTextP2.scrollTop = cmdWinTextP2.scrollHeight - cmdWinTextP2.clientHeight;
 }
+
+/*
+End of code snippet (4. Scroll to bottom of div?)
+*/
+
+/* REFERENCE LIST MAIN.JS
+
+1. Stackoverflow(2015)Connect to localhost:3000 from another computer | expressjs, nodejs [duplicate]. Retrieved from:
+https://stackoverflow.com/questions/30712141/connect-to-localhost3000-from-another-computer-expressjs-nodejs
+
+2. stackoverflow(2016) 2. How to get the selected radio button’s value?. Retrieved from:
+https://stackoverflow.com/questions/9618504/how-to-get-the-selected-radio-button-s-value
+
+3. stackoverflow(2015)3. Javascript, setTimeout loops?. Retrieved from:
+    https://stackoverflow.com/questions/22154129/javascript-settimeout-loops
+
+4. stackoverflow(2015)Scroll to bottom of div?. Retrieved from:
+https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div
+
+*/

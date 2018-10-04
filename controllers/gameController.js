@@ -41,69 +41,50 @@ let cmdIndexP2 = 0;
 
 
 module.exports = function(app, io) {
+    /* exports the contents so that it is made a callable function.
+
+    param: app(app obj): object instance of the express app.
+    param: io(io obj): object instance of the socket.io object.
+    */
 
     // Routes
     app.get('/', function(req, res){
+        /* Route for the root file.
+
+        param: '/'(str): string representing the root filepath.
+        param: function(request obj, response obj): HTTP request and response objects.
+        */
+
         res.render('index', {
             css_file : '/css/home.css',
             js_file : '/javascript/home.js'
         });
     });
 
-    /*
-    app.get('/player-one', function(req, res){
-       res.render('player_one', {
-           css_file : '/css/player_one.css',
-           js_file : '/javascript/home.js'
-       })
-    });
-
-    app.get('/player-two', function(req, res){
-        res.render('player_two', {
-            css_file : '/css/player_two.css',
-            js_file : '/javascript/home.js'
-        })
-    });*/
-
-
-    // Johnny Five
-    let board = new five.Board(/*{
-        port: "COM3" // COM5 on laptop, COM3 on desktop.
-    }*/);
-
-/*    board.on('ready', function(){
-
-        // Creating Arduino buttons with Johnny-five event listeners
-        let pinNum = 2;
-
-        for (let i=0; i < 8; i++) {
-            allButtons.push(new five.Button(pinNum));
-            let playerNum = 1;
-
-            if (i > 4) {
-                playerNum = 2;
-            }
-
-            allButtons[i].on('down', async function(){
-                changeLight(i);
-                await checkCriteria(i+1, playerNum);
-            });
-
-            pinNum++;
-        }*/
-
+    // Johnny-Five
+    let board = new five.Board();
 
         // Socket connection event
         io.on('connection', function(socket) {
-            console.log('made socket connection: ', socket.id + '\n');
+            /* looks for connections to the server and saves the connecting socket id on connection. Upper level function that
+            contains all other communications with the clients.
 
+            param: 'connection'(str): listens to when clients emit that they have connected to the server.
+            param: func(socket obj): the socket identifier of the unique connection to the server.
+            */
+
+            console.log('made socket connection: ', socket.id + '\n');
             socketIdList.push(socket.id);
             console.log('connected sockets: ' + socketIdList + '\n');
 
             function setUpArduino() {
-                board.on('ready', function() {
+                /* Setting up the Arduino.
+                */
 
-                    // Creating Arduino buttons with Johnny-five event listeners
+                board.on('ready', function() {
+                    /* Creating Arduino buttons with Johnny-five event listeners
+                    */
+
                     let pinNum = 2;
 
                     for (let i = 0; i < 8; i++) {
@@ -125,6 +106,14 @@ module.exports = function(app, io) {
             setUpArduino();
 
             function checkCriteria(btnPressed, playerNum) {
+                /* Checking if the button pressed is equal to the criteria of which the current command have, kn order
+                to be successfully completed or not.
+
+                param: btnPressed(int): number of which button was pressed.
+                param: playerNum(int): number representing the player number.
+                return: function(resolve obj): function that runs the content within it's brackets.
+                */
+
                 return new Promise(function(resolve) {
                     if (btnPressed === commandCriteriaP1[cmdIndexP1]) {
                         if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
@@ -139,12 +128,7 @@ module.exports = function(app, io) {
                         }
 
                     } else {
-                        // wrong choice, somehow fires multiple times (2-4 times).
-/*                        if (playerNum === 1) {
-                            io.to(playerList[0].socketId).emit('wrongAction');
-                        } else if(playerNum === 2) {
-                            io.to(playerList[1].socketId).emit('wrongAction');
-                        }*/
+                        // Nothing
                     }
                     changeLight(btnPressed);
                     resolve();
@@ -153,6 +137,11 @@ module.exports = function(app, io) {
             }
 
             function changeLight(lightNum) {
+                /* function of which toggles a light corresponding to the button pressed.
+
+                param: lightNum(int): number representing the number of the button pressed.
+                */
+
                 io.to(socket.id).emit('toggleLight', lightNum);
             }
 
@@ -175,8 +164,19 @@ module.exports = function(app, io) {
                 io.sockets.emit('addPlayerToOutput', data);
 
                 if(playerList.length === 2) {
-                    // https://stackoverflow.com/questions/42499698/sorting-an-array-of-objects-based-on-a-property-value-int
+
+                    /*
+                    The code snippet (1. Sorting an array of objects based on a property value (int) [duplicate]) below
+                    has been adapted from: /https://stackoverflow.com/questions/42499698/sorting-an-array-of-objects-
+                    based-on-a-property-value-int
+                    The code has been altered to fit the spesific purpose of sorting the array in this code.
+                    */
+
                     await playerList.sort((a, b) => a.playerNumber - b.playerNumber);
+
+                    /*
+                    End code snippet (1. Sorting an array of objects based on a property value (int) [duplicate])
+                    */
 
                     io.to(playerList[0].socketId).emit('changeScreen', 'css/player_one.css');
                     io.to(playerList[1].socketId).emit('changeScreen', 'css/player_two.css');
@@ -205,6 +205,11 @@ module.exports = function(app, io) {
 
 
                 function createFirstCommand() {
+                    /* creates the first command and sends it to the front-end.
+
+                    return: function(resolve): runs the content within the brackets of this function.
+                    */
+
                     return new Promise(function(resolve){
                         setTimeout(function () { // starts the function content after five seconds.
 
@@ -222,8 +227,13 @@ module.exports = function(app, io) {
                 }
 
                 function checkFirstCommand() {
+                    /* checks the first command to see if it has been finished or not.
+
+                    return: function(resolve): runs the content within the brackets of this function.
+                    */
+
                     return new Promise(function(resolve){
-                        setTimeout(function () { // checks if the task has been completed after five seconds.
+                        setTimeout(function () { // checks if the task has been completed after eight seconds.
 
                             // check which player
                             if (playerList[playerIndex].playerNumber === 1) {
@@ -268,17 +278,12 @@ module.exports = function(app, io) {
                     if(inLoopP1 === false) {
                         inLoopP1 = true;
 
-/*                        if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
-                            commandsCompletedP1[cmdIndexP1] = 'completed';
-                            io.to(playerId).emit('taskSucceeded');
-                        }*/
-
                         cmdIndexP1 ++;
                         if(cmdIndexP1 <= commandListP1.length -1) {
 
                             function newCommandPlayerOne() {
                                 return new Promise(function(resolve) {
-                                    setTimeout(function(){ // gives the player a new task after two seconds.
+                                    setTimeout(function(){ // gives the player a new task after three seconds.
 
                                         io.to(playerId).emit('newCommandP1', commandListP1[cmdIndexP1]);
                                         commandsCompletedP1[cmdIndexP1] = 'initiated';
@@ -289,7 +294,7 @@ module.exports = function(app, io) {
 
                             function checkIfCompletedPlayerOne() {
                                 return new Promise(function(resolve) {
-                                    setTimeout(function() { // checks if the task has been completed after five seconds.
+                                    setTimeout(function() { // checks if the task has been completed after eight seconds.
 
                                         if(commandsCompletedP1[cmdIndexP1] === 'initiated') {
                                             io.to(playerId).emit('taskFailed');
@@ -314,17 +319,13 @@ module.exports = function(app, io) {
                 } else {
                     if (inLoopP2 === false) {
                         inLoopP2 = true;
-/*                        if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
-                            commandsCompletedP2[cmdIndexP2] = 'completed';
-                            io.to(playerId).emit('taskSucceeded');
-                        }*/
 
                         cmdIndexP2 ++;
                         if (cmdIndexP2 <= commandListP2.length -1) {
 
                             function newCommandPlayerTwo() {
                                 return new Promise(function(resolve) {
-                                    setTimeout(function () { // gives the player a new task after two seconds.
+                                    setTimeout(function () { // gives the player a new task after three seconds.
                                         io.to(playerId).emit('newCommandP2', commandListP2[cmdIndexP2]);
                                         commandsCompletedP2[cmdIndexP2] = 'initiated';
                                         resolve();
@@ -334,7 +335,7 @@ module.exports = function(app, io) {
 
                             function checkIfCompletedPlayerTwo() {
                                 return new Promise(function(resolve) {
-                                    setTimeout(function () { // checks if the task has been completed after five seconds.
+                                    setTimeout(function () { // checks if the task has been completed after eight seconds.
 
                                         if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
                                             io.to(playerId).emit('taskFailed');
@@ -379,7 +380,6 @@ module.exports = function(app, io) {
                 }
             });
         });
-    /*});*/
 };
 
 function Player(socketId, playerName, playerNumber) {
@@ -408,4 +408,9 @@ function checkPlayerNumber(id) {
     }
 }
 
+/* REFERENCE LIST GAMECONTROLLER.JS
 
+ 1. stackoverflow(2017)Sorting an array of objects based on a property value (int) [duplicate]. Retrieved from:
+  /https://stackoverflow.com/questions/42499698/sorting-an-array-of-objects-based-on-a-property-value-int
+
+*/
