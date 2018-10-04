@@ -19,7 +19,7 @@ SWHAM-Arduino/public/javascript/ to find the home.js file.
 Alter the line with the following code 
 from: let socket = io.connect('localhost:3000'); 
 to: let socket = io.connect('youripv4adress:3000');
-Now in your cmd run node app.js given that you are in the root folder of the project. This should run the server.
+Now in your cmd run npm install and wait for it to be finished, then write node app.js, given that you are in the root folder of the project. This should run the server.
 Open up one browser on each computer and write in the url 'youripv4adress:3000' in your browser.
 At this time you should have the landing page come up on both computers. Make sure that each player selects a unique player number, as the
 code will bug if there are two players with the same player number. Moreover, for each runthrough of the game, the server will have to be
