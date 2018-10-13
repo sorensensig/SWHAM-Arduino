@@ -37,6 +37,8 @@ let taskCriteriaP2 = '';
 let playerNumber = 0;
 let checkingP1 = false;
 let checkingP2 = false;
+let timerBarsP1 = [];
+let timerBarsP2 = [];
 
 
 // LANDING PAGE
@@ -139,6 +141,7 @@ socket.on('runGame', async function() {
     socket.emit('getFirstCommand');
 });
 
+
 // GAME SCREEN PLAYER ONE
 socket.on('newCommandP1', function(command, criteria) {
     /* Receives a new command and a criteria to fulfill that command from the server and renders it to the player one
@@ -152,6 +155,89 @@ socket.on('newCommandP1', function(command, criteria) {
     cmdWinTextP1.innerHTML += '<p class="blue"> > ' + command + '</p><br/>';
     scrollP1();
     taskCriteriaP1 = criteria;
+});
+
+socket.on('timerP1', async function(time) {
+
+    let iterations = time/250;
+    let percentageDecrease = 100/iterations;
+    let currentPercentage = 100;
+
+    let outer = document.createElement('div');
+    outer.id='counter-bar-outer-p1';
+    let inner = document.createElement('div');
+    inner.id='counter-bar-inner-p1';
+    timerBarsP1.push(document.createElement('div'));
+    timerBarsP1[timerBarsP1.length-1].id='counter-bar-decrease-p1';
+
+    cmdWinTextP1.appendChild(outer);
+    outer.appendChild(inner);
+    inner.appendChild(timerBarsP1[timerBarsP1.length-1]);
+
+    let outerBar = document.getElementById('counter-bar-outer-p1');
+    let innerBar = document.getElementById('counter-bar-inner-p1');
+    let decreaseBar = document.getElementById('counter-bar-decrease-p1');
+
+    scrollP1();
+
+    function start() {
+        let interval = setInterval(function () {
+            currentPercentage -= percentageDecrease;
+            decreaseBar.style.width = currentPercentage.toString() + "%";
+            // cmdWinTextP1.innerHTML += '<p class="countdown"><strong>' + (iterations*250)/1000 + ', ' + '</strong></p></br>';
+
+            iterations--;
+            if (iterations === 1) {
+                innerBar.removeChild(decreaseBar);
+                outerBar.removeChild(innerBar);
+                cmdWinTextP1.removeChild(outerBar);
+                clearInterval(interval);
+            }
+        }, 250);
+    }
+
+    start();
+});
+
+socket.on('timerP2', async function(time) {
+    let iterations = time/250;
+    let percentageDecrease = 100/iterations;
+    let currentPercentage = 100;
+
+    let outer = document.createElement('div');
+    outer.id='counter-bar-outer-p2';
+    let inner = document.createElement('div');
+    inner.id='counter-bar-inner-p2';
+    timerBarsP2.push(document.createElement('div'));
+    timerBarsP2[timerBarsP2.length-1].id='counter-bar-decrease-p2';
+
+    cmdWinTextP2.appendChild(outer);
+    outer.appendChild(inner);
+    inner.appendChild(timerBarsP2[timerBarsP2.length-1]);
+
+    let outerBar = document.getElementById('counter-bar-outer-p2');
+    let innerBar = document.getElementById('counter-bar-inner-p2');
+    let decreaseBar = document.getElementById('counter-bar-decrease-p2');
+
+    scrollP1();
+
+    function start() {
+        let interval = setInterval(function () {
+            currentPercentage -= percentageDecrease;
+            decreaseBar.style.width = currentPercentage.toString() + "%";
+            // cmdWinTextP1.innerHTML += '<p class="countdown"><strong>' + (iterations*250)/1000 + ', ' + '</strong></p></br>';
+
+            iterations--;
+            if (iterations === 1) {
+                innerBar.removeChild(decreaseBar);
+                outerBar.removeChild(innerBar);
+                cmdWinTextP2.removeChild(outerBar);
+                clearInterval(interval);
+            }
+        }, 250);
+    }
+
+    start();
 });
 
 

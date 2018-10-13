@@ -89,6 +89,32 @@ p {
     font-size: 1em;
 }
 
+#counter-bar-outer-p2 {
+    height: 5vh;
+    width: 100%;
+    background-color: dimgrey;
+    border: solid 5px black;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#counter-bar-inner-p2 {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: dimgray;
+    border: solid 0 dimgray;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#counter-bar-decrease-p2 {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: red;
+    border: solid 0 red;
+    border-radius: 15px 15px 15px 15px;
+}
+
 #demand-graph {
     margin-left: auto;
     margin-right: auto;

@@ -22,6 +22,10 @@ let commandListP1 = [
 let commandCriteriaP1 = [3, 7, 1, 4, 6, 7, 1, 5];
 let commandsCompletedP1 = [];
 let cmdIndexP1 = 0;
+let newCommandTimerP1 = 3000;
+let checkCommandTimerP1 = 0;
+let checkCommandMinTimerP1 = 3000;
+let checkCommandMaxTimerP1 = 8000;
 
 // Player Two Variables
 let commandListP2 = [
@@ -38,6 +42,10 @@ let commandListP2 = [
 let commandCriteriaP2 = [8, 3, 5, 8, 2, 2, 6, 4];
 let commandsCompletedP2 = [];
 let cmdIndexP2 = 0;
+let newCommandTimerP2 = 3000;
+let checkCommandTimerP2 = 0;
+let checkCommandMinTimerP2 = 3000;
+let checkCommandMaxTimerP2 = 8000;
 
 
 module.exports = function(app, io) {
@@ -258,6 +266,11 @@ module.exports = function(app, io) {
                 }
 
                 await createFirstCommand();
+                if (playerList[playerIndex].playerNumber === 1) {
+                    io.to(playerId).emit('timerP1', 8000);
+                } else {
+                    io.to(playerId).emit('timerP2', 8000);
+                }
                 await checkFirstCommand();
 
             });
@@ -288,7 +301,7 @@ module.exports = function(app, io) {
                                         io.to(playerId).emit('newCommandP1', commandListP1[cmdIndexP1]);
                                         commandsCompletedP1[cmdIndexP1] = 'initiated';
                                         resolve();
-                                    }, 3000);
+                                    }, newCommandTimerP1);
                                 });
                             }
 
@@ -303,11 +316,19 @@ module.exports = function(app, io) {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
-                                    }, 8000);
+                                    }, checkCommandTimerP1);
                                 });
                             }
 
+                            // change timer new command
+                            newCommandTimerP1 -= 250;
+                            // change timer check command
+                            checkCommandMaxTimerP1 -= 500;
+                            checkCommandTimerP1 = Math.floor(Math.random() * checkCommandMaxTimerP1) + checkCommandMinTimerP1;
+                            checkCommandTimerP1 =  parseInt(checkCommandTimerP1/250)*250;
+
                             await newCommandPlayerOne();
+                            io.to(playerId).emit('timerP1', checkCommandTimerP1);
                             await checkIfCompletedPlayerOne();
 
                         } else {
@@ -329,7 +350,7 @@ module.exports = function(app, io) {
                                         io.to(playerId).emit('newCommandP2', commandListP2[cmdIndexP2]);
                                         commandsCompletedP2[cmdIndexP2] = 'initiated';
                                         resolve();
-                                    }, 3000);
+                                    }, newCommandTimerP2);
                                 });
                             }
 
@@ -344,11 +365,19 @@ module.exports = function(app, io) {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
-                                    }, 8000);
+                                    }, checkCommandTimerP2);
                                 })
                             }
 
+                            // change timer new command
+                            newCommandTimerP2 -= 250;
+                            // change timer check command
+                            checkCommandMaxTimerP2 -= 500;
+                            checkCommandTimerP2 = Math.floor(Math.random() * checkCommandMaxTimerP2) + checkCommandMinTimerP2;
+                            checkCommandTimerP2 =  parseInt(checkCommandTimerP2/250)*250;
+
                             await newCommandPlayerTwo();
+                            io.to(playerId).emit('timerP2', checkCommandTimerP2);
                             await checkIfCompletedPlayerTwo();
 
 
