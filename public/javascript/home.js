@@ -31,14 +31,15 @@ let playerName = document.getElementById('player-name'),
     genLampThree = document.getElementById('generator-lamp-three'),
     genLampFour = document.getElementById('generator-lamp-four');
 
-let gameIsRunning = false;
-let taskCriteriaP1 = '';
-let taskCriteriaP2 = '';
-let playerNumber = 0;
-let checkingP1 = false;
-let checkingP2 = false;
-let timerBarsP1 = [];
-let timerBarsP2 = [];
+
+// shared
+let gameIsRunning = false, playerNumber = 0;
+
+// player one
+let taskCriteriaP1 = '', checkingP1 = false, timerBarsP1 = [], intervalP1 = 0, outerBarP1, innerBarP1, decreaseBarP1;
+
+// player two
+let taskCriteriaP2 = '', checkingP2 = false, timerBarsP2 = [], intervalP2 = 0, outerBarP2, innerBarP2, decreaseBarP2;
 
 
 // LANDING PAGE
@@ -101,6 +102,10 @@ socket.on('addPlayerToOutput', function(data){
 });
 
 socket.on('changeScreen', function(data){
+    /* Changes the css file of the player's browser.
+    param: 'changeScreen'(str): checks if emit from server is 'changeScreen'.
+    param: func(data str): string containing path to css file.
+    */
     cssFile.setAttribute("href", data);
         socket.emit('readyToRun');
 });
@@ -152,12 +157,17 @@ socket.on('newCommandP1', function(command, criteria) {
     information of which the player is about to do, and a string that includes the correct answer to the command.
     */
 
-    cmdWinTextP1.innerHTML += '<p class="blue"> > ' + command + '</p><br/>';
+    cmdWinTextP1.innerHTML += '<p class="black"> > ' + command + '</p><br/>';
     scrollP1();
     taskCriteriaP1 = criteria;
 });
 
 socket.on('timerP1', async function(time) {
+    /* Function that displays a timer in the command window of player one.
+
+    param: 'timerP1'(str): checks if emit from server is of type 'timerP1'.
+    param: func(time int): integer containing the time until task fails.
+    */
 
     let iterations = time/250;
     let percentageDecrease = 100/iterations;
@@ -174,24 +184,24 @@ socket.on('timerP1', async function(time) {
     outer.appendChild(inner);
     inner.appendChild(timerBarsP1[timerBarsP1.length-1]);
 
-    let outerBar = document.getElementById('counter-bar-outer-p1');
-    let innerBar = document.getElementById('counter-bar-inner-p1');
-    let decreaseBar = document.getElementById('counter-bar-decrease-p1');
+    outerBarP1 = document.getElementById('counter-bar-outer-p1');
+    innerBarP1 = document.getElementById('counter-bar-inner-p1');
+    decreaseBarP1 = document.getElementById('counter-bar-decrease-p1');
 
     scrollP1();
 
     function start() {
-        let interval = setInterval(function () {
+        intervalP1 = setInterval(function () {
             currentPercentage -= percentageDecrease;
-            decreaseBar.style.width = currentPercentage.toString() + "%";
+            decreaseBarP1.style.width = currentPercentage.toString() + "%";
             // cmdWinTextP1.innerHTML += '<p class="countdown"><strong>' + (iterations*250)/1000 + ', ' + '</strong></p></br>';
 
             iterations--;
             if (iterations === 1) {
-                innerBar.removeChild(decreaseBar);
-                outerBar.removeChild(innerBar);
-                cmdWinTextP1.removeChild(outerBar);
-                clearInterval(interval);
+                innerBarP1.removeChild(decreaseBarP1);
+                outerBarP1.removeChild(innerBarP1);
+                cmdWinTextP1.removeChild(outerBarP1);
+                clearInterval(intervalP1);
             }
         }, 250);
     }
@@ -200,6 +210,12 @@ socket.on('timerP1', async function(time) {
 });
 
 socket.on('timerP2', async function(time) {
+    /* Function that displays a timer in the command window of player two.
+
+    param: 'timerP2'(str): checks if emit from server is of type 'timerP2'.
+    param: func(time int): integer containing the time until task fails.
+    */
+
     let iterations = time/250;
     let percentageDecrease = 100/iterations;
     let currentPercentage = 100;
@@ -215,24 +231,24 @@ socket.on('timerP2', async function(time) {
     outer.appendChild(inner);
     inner.appendChild(timerBarsP2[timerBarsP2.length-1]);
 
-    let outerBar = document.getElementById('counter-bar-outer-p2');
-    let innerBar = document.getElementById('counter-bar-inner-p2');
-    let decreaseBar = document.getElementById('counter-bar-decrease-p2');
+    outerBarP2 = document.getElementById('counter-bar-outer-p2');
+    innerBarP2 = document.getElementById('counter-bar-inner-p2');
+    decreaseBarP2 = document.getElementById('counter-bar-decrease-p2');
 
     scrollP1();
 
     function start() {
-        let interval = setInterval(function () {
+        intervalP2 = setInterval(function () {
             currentPercentage -= percentageDecrease;
-            decreaseBar.style.width = currentPercentage.toString() + "%";
+            decreaseBarP2.style.width = currentPercentage.toString() + "%";
             // cmdWinTextP1.innerHTML += '<p class="countdown"><strong>' + (iterations*250)/1000 + ', ' + '</strong></p></br>';
 
             iterations--;
             if (iterations === 1) {
-                innerBar.removeChild(decreaseBar);
-                outerBar.removeChild(innerBar);
-                cmdWinTextP2.removeChild(outerBar);
-                clearInterval(interval);
+                innerBarP2.removeChild(decreaseBarP2);
+                outerBarP2.removeChild(innerBarP2);
+                cmdWinTextP2.removeChild(outerBarP2);
+                clearInterval(intervalP2);
             }
         }, 250);
     }
@@ -251,12 +267,32 @@ socket.on('newCommandP2', function(command, criteria) {
     information of which the player is about to do, and a string that includes the correct answer to the command.
     */
 
-    cmdWinTextP2.innerHTML += '<p class="blue"> > ' + command + '</p><br/>';
+    cmdWinTextP2.innerHTML += '<p class="black"> > ' + command + '</p><br/>';
     scrollP2();
     taskCriteriaP2 = criteria;
 });
 
-socket.on('taskFailed', function() {
+socket.on('wrongAction', function(playerNum){
+    if (playerNum === 1) {
+        clearInterval(intervalP1);
+        // check if command timer is on player one or player two screen
+        innerBarP1.removeChild(decreaseBarP1);
+        outerBarP1.removeChild(innerBarP1);
+        cmdWinTextP1.removeChild(outerBarP1);
+        cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Wrong button - Task failed </p><br/>';
+        scrollP1();
+    } else {
+        clearInterval(intervalP2);
+        // check if command timer is on player one or player two screen
+        innerBarP2.removeChild(decreaseBarP2);
+        outerBarP2.removeChild(innerBarP2);
+        cmdWinTextP2.removeChild(outerBarP2);
+        cmdWinTextP2.innerHTML += '<p class="red wide-text"> > Wrong button - Task failed </p><br/>';
+        scrollP2();
+    }
+});
+
+socket.on('taskFailed', function(playerNum) {
     /* Renders a string in red 'Task failed' to the appropriate player's screen.
 
     param: 'taskFailed'(str): listening to when the server emits 'taskFailed'.
@@ -265,7 +301,7 @@ socket.on('taskFailed', function() {
     */
 
     // FEATURE IDEA: Set fail condition, e.g., increase heat level or something
-    if (playerNumber === 1) {
+    if (playerNum === 1) {
         cmdWinTextP1.innerHTML += '<p class="red wide-text"> > Task failed </p><br/>';
         scrollP1();
     } else {
@@ -280,17 +316,27 @@ socket.on('getNewTask', function(){
    socket.emit('commandCompleted');
 });
 
-socket.on('taskSucceeded', function() {
+socket.on('taskSucceeded', function(playerNum) {
     /* Renders a string in green when a task has been successfully completed.
 
     param: 'taskSucceeded'(str): listens to the server for it's emit of 'taskSucceeded'.
     param: func(no param): runs the code beneath.
     */
 
-    if (playerNumber === 1) {
+    if (playerNum === 1) {
+        clearInterval(intervalP1);
+        // check if command timer is on player one or player two screen
+        innerBarP1.removeChild(decreaseBarP1);
+        outerBarP1.removeChild(innerBarP1);
+        cmdWinTextP1.removeChild(outerBarP1);
         cmdWinTextP1.innerHTML += '<p class="green wide-text"> > Task successful </p><br/>';
         scrollP1();
     } else {
+        clearInterval(intervalP2);
+        // check if command timer is on player one or player two screen
+        innerBarP2.removeChild(decreaseBarP2);
+        outerBarP2.removeChild(innerBarP2);
+        cmdWinTextP2.removeChild(outerBarP2);
         cmdWinTextP2.innerHTML += '<p class="green wide-text"> > Task successful </p><br/>';
         scrollP2();
     }

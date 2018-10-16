@@ -6,17 +6,18 @@ let inLoopP1 = false;
 let inLoopP2 = false;
 let allButtons = [];
 let playersReady = 0;
+let checking = false;
 
 // Player One Variables
 let commandListP1 = [
-    'Activate sector 3 cooling system',
-    'Activate generator output level 3',
-    'Activate sector 1 cooling system',
-    'Activate sector 4 cooling system',
-    'Activate generator output level 2',
-    'Switch off generator output level 3',
-    'Deactivate sector 1 cooling system',
-    'Switch off generator output level 1'
+    'Activate sector <b>3 cooling system</b>',
+    'Activate <b>generator</b> output level <b>3</b>',
+    'Activate sector <b>1 cooling system</b>',
+    'Activate sector <b>4 cooling system</b>',
+    'Activate <b>generator</b> output level <b>2</b>',
+    'Switch off <b>generator</b> output level <b>3</b>',
+    'Deactivate sector <b>1 cooling system</b>',
+    'Switch off <b>generator</b> output level <b>1</b>'
 ];
 
 let commandCriteriaP1 = [3, 7, 1, 4, 6, 7, 1, 5];
@@ -24,19 +25,19 @@ let commandsCompletedP1 = [];
 let cmdIndexP1 = 0;
 let newCommandTimerP1 = 3000;
 let checkCommandTimerP1 = 0;
-let checkCommandMinTimerP1 = 3000;
+let checkCommandMinTimerP1 = 5000;
 let checkCommandMaxTimerP1 = 8000;
 
 // Player Two Variables
 let commandListP2 = [
-    'Activate generator output level 4',
-    'Switch off sector 3 cooling system',
-    'Activate generator output level 1',
-    'Switch off generator output level 4',
-    'Activate sector 2 cooling system',
-    'Deactivate sector 2 cooling system',
-    'Switch off generator output level 2',
-    'Deactivate sector 4 cooling system'
+    'Activate <b>generator</b> output level <b>4</b>',
+    'Switch off sector <b>3 cooling system</b>',
+    'Activate <b>generator</b> output level <b>1</b>',
+    'Switch off <b>generator</b> output level <b>4</b>',
+    'Activate sector <b>2 cooling system</b>',
+    'Deactivate sector <b>2 cooling system</b>',
+    'Switch off <b>generator</b> output level <b>2</b>',
+    'Deactivate sector <b>4 cooling system</b>'
 ];
 
 let commandCriteriaP2 = [8, 3, 5, 8, 2, 2, 6, 4];
@@ -44,7 +45,7 @@ let commandsCompletedP2 = [];
 let cmdIndexP2 = 0;
 let newCommandTimerP2 = 3000;
 let checkCommandTimerP2 = 0;
-let checkCommandMinTimerP2 = 3000;
+let checkCommandMinTimerP2 = 5000;
 let checkCommandMaxTimerP2 = 8000;
 
 
@@ -97,14 +98,9 @@ module.exports = function(app, io) {
 
                     for (let i = 0; i < 8; i++) {
                         allButtons.push(new five.Button(pinNum));
-                        let playerNum = 1;
-
-                        if (i > 4) {
-                            playerNum = 2;
-                        }
 
                         allButtons[i].on('press', async function () {
-                            await checkCriteria(i + 1, playerNum);
+                            await checkCriteria(i + 1);
                         });
 
                         pinNum++;
@@ -113,7 +109,7 @@ module.exports = function(app, io) {
             }
             setUpArduino();
 
-            function checkCriteria(btnPressed, playerNum) {
+            function checkCriteria(btnPressed) {
                 /* Checking if the button pressed is equal to the criteria of which the current command have, kn order
                 to be successfully completed or not.
 
@@ -122,26 +118,49 @@ module.exports = function(app, io) {
                 return: function(resolve obj): function that runs the content within it's brackets.
                 */
 
+                // button 1-4 = player 1, button 5-8 = player 2
                 return new Promise(function(resolve) {
-                    if (btnPressed === commandCriteriaP1[cmdIndexP1]) {
-                        if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
-                            commandsCompletedP1[cmdIndexP1] = 'completed';
-                            io.to(playerList[0].socketId).emit('taskSucceeded');
-                        }
-
-                    } else if (btnPressed === commandCriteriaP2[cmdIndexP2]) {
-                        if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
-                            commandsCompletedP2[cmdIndexP2] = 'completed';
-                            io.to(playerList[1].socketId).emit('taskSucceeded');
-                        }
-
-                    } else {
-                        // Nothing
-                    }
                     changeLight(btnPressed);
+                    if (!checking) {
+                        checking = true;
+                        setTimeout(function () {
+                            checking = false;
+                        }, 50);
+                        if (btnPressed === commandCriteriaP1[cmdIndexP1]) {
+                            if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
+                                commandsCompletedP1[cmdIndexP1] = 'completed';
+                                io.to(playerList[0].socketId).emit('taskSucceeded', 1);
+                            }
+
+                        } else if (btnPressed === commandCriteriaP2[cmdIndexP2]) {
+                            if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
+                                commandsCompletedP2[cmdIndexP2] = 'completed';
+                                io.to(playerList[1].socketId).emit('taskSucceeded', 2);
+                            }
+
+                        } else {
+                            if (btnPressed < 5) {
+                                if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
+                                    commandsCompletedP1[cmdIndexP1] = 'failed';
+                                    io.to(playerList[0].socketId).emit('wrongAction', 1);
+                                    setTimeout(function () {
+                                        changeLight(btnPressed);
+                                    }, 200);
+                                }
+                            } else {
+                                if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
+                                    commandsCompletedP2[cmdIndexP2] = 'failed';
+                                    io.to(playerList[1].socketId).emit('wrongAction', 2);
+                                    setTimeout(function () {
+                                        changeLight(btnPressed);
+                                    }, 200);
+                                }
+                            }
+                        }
+                    }
+
                     resolve();
                 });
-
             }
 
             function changeLight(lightNum) {
@@ -149,8 +168,11 @@ module.exports = function(app, io) {
 
                 param: lightNum(int): number representing the number of the button pressed.
                 */
-
-                io.to(socket.id).emit('toggleLight', lightNum);
+                if(lightNum < 5) {
+                    io.to(playerList[0].socketId).emit('toggleLight', lightNum);
+                } else {
+                    io.to(playerList[1].socketId).emit('toggleLight', lightNum);
+                }
             }
 
             // Socket Listener events
@@ -246,17 +268,17 @@ module.exports = function(app, io) {
                             // check which player
                             if (playerList[playerIndex].playerNumber === 1) {
                                 if (commandsCompletedP1[cmdIndexP1] === 'initiated') {
-                                    io.to(playerId).emit('taskFailed');
+                                    io.to(playerId).emit('taskFailed', 1);
                                     commandsCompletedP1[cmdIndexP1] = 'failed';
-                                } else if(commandsCompletedP1[cmdIndexP1] === 'completed') {
+                                } else if(commandsCompletedP1[cmdIndexP1] === 'completed' || commandsCompletedP1[cmdIndexP1] === 'failed') {
                                     io.to(playerId).emit('getNewTask');
                                 }
 
                             } else {
                                 if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
-                                    io.to(playerId).emit('taskFailed');
+                                    io.to(playerId).emit('taskFailed', 2);
                                     commandsCompletedP2[cmdIndexP2] = 'failed';
-                                } else if(commandsCompletedP2[cmdIndexP2] === 'completed') {
+                                } else if(commandsCompletedP2[cmdIndexP2] === 'completed' || commandsCompletedP2[cmdIndexP2] === 'failed') {
                                     io.to(playerId).emit('getNewTask');
                                 }
                             }
@@ -271,7 +293,10 @@ module.exports = function(app, io) {
                 } else {
                     io.to(playerId).emit('timerP2', 8000);
                 }
-                await checkFirstCommand();
+                setTimeout(async function(){
+                    await checkFirstCommand();
+                }, 250);
+
 
             });
 
@@ -310,9 +335,9 @@ module.exports = function(app, io) {
                                     setTimeout(function() { // checks if the task has been completed after eight seconds.
 
                                         if(commandsCompletedP1[cmdIndexP1] === 'initiated') {
-                                            io.to(playerId).emit('taskFailed');
+                                            io.to(playerId).emit('taskFailed', 1);
                                             commandsCompletedP1[cmdIndexP1] = 'failed';
-                                        } else if(commandsCompletedP1[cmdIndexP1] === 'completed') {
+                                        } else if(commandsCompletedP1[cmdIndexP1] === 'completed' || commandsCompletedP1[cmdIndexP1] === 'failed') {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
@@ -324,12 +349,16 @@ module.exports = function(app, io) {
                             newCommandTimerP1 -= 250;
                             // change timer check command
                             checkCommandMaxTimerP1 -= 500;
+                            checkCommandMinTimerP1 -= 500;
                             checkCommandTimerP1 = Math.floor(Math.random() * checkCommandMaxTimerP1) + checkCommandMinTimerP1;
                             checkCommandTimerP1 =  parseInt(checkCommandTimerP1/250)*250;
 
                             await newCommandPlayerOne();
                             io.to(playerId).emit('timerP1', checkCommandTimerP1);
-                            await checkIfCompletedPlayerOne();
+                            setTimeout(async function(){
+                                await checkIfCompletedPlayerOne();
+                            },250);
+
 
                         } else {
                             io.to(playerId).emit('prototypeFinished');
@@ -359,9 +388,9 @@ module.exports = function(app, io) {
                                     setTimeout(function () { // checks if the task has been completed after eight seconds.
 
                                         if (commandsCompletedP2[cmdIndexP2] === 'initiated') {
-                                            io.to(playerId).emit('taskFailed');
+                                            io.to(playerId).emit('taskFailed', 2);
                                             commandsCompletedP2[cmdIndexP2] = 'failed';
-                                        } else if(commandsCompletedP2[cmdIndexP2] === 'completed') {
+                                        } else if(commandsCompletedP2[cmdIndexP2] === 'completed' || commandsCompletedP2[cmdIndexP2] === 'failed') {
                                             io.to(playerId).emit('getNewTask');
                                         }
                                         resolve();
@@ -372,6 +401,7 @@ module.exports = function(app, io) {
                             // change timer new command
                             newCommandTimerP2 -= 250;
                             // change timer check command
+                            checkCommandMinTimerP2 -= 500;
                             checkCommandMaxTimerP2 -= 500;
                             checkCommandTimerP2 = Math.floor(Math.random() * checkCommandMaxTimerP2) + checkCommandMinTimerP2;
                             checkCommandTimerP2 =  parseInt(checkCommandTimerP2/250)*250;
